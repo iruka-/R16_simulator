@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://diode.matrix.jp/DETAIL/ISA -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <meta name="keywords" content="ISA,命令セット,RETROF-16">
+    <meta name="description" content="マイクロプロセッサやFPGAを使わずに、
+単純論理素子（7400シリーズTTL）のみを使ってコンピュータを作るのが趣味のヂヂィのページです。">
+<meta name="GENERATOR" content="JustSystems Homepage Builder Version 15.0.12.0 for Windows">
+<link rel="stylesheet" type="text/css" href="./RETROF-16改のISA_files/matrix.css">
+    <title>RETROF-16改のISA</title>
+  </head>
+  <body><!-- コンテナ開始 -->
+    <div id="container">
+      <!-- ページ開始 -->
+      <div id="page">
+        <!-- ヘッダ開始 -->
+        <div id="header">
+          <h1 class="siteTitle"><!--img src="memory_top.JPG"-->RETROF-16改のISA（命令セット）</h1>
+        </div>
+        <!-- ヘッダ終了 --><!-- コンテンツ開始 -->
+        <div id="content">
+          <!-- メインカラム開始 -->
+          <div id="sub">
+            <div class="section">
+          <p><a href="http://diode.matrix.jp/index.htm">メインページに戻る</a><br>
+          </p>
+          <p><img src="./RETROF-16改のISA_files/0612JAPAN.JPG" width="200" height="150" class="ls">Twitter関係者のみへの仮公開です。今後大きく変わる可能性があります　２０１３年３月２８日<br>
+          Twitter関係者のみへの仮公開です。今後大きく変わる可能性があります　２０１３年３月２８日<br>
+          Twitter関係者のみへの仮公開です。今後大きく変わる可能性があります　２０１３年３月２８日<br>
+          Twitter関係者のみへの仮公開です。今後大きく変わる可能性があります　２０１３年３月２８日<br>
+          Twitter関係者のみへの仮公開です。今後大きく変わる可能性があります　２０１３年３月２８日<br>
+          Twitter関係者のみへの仮公開です。今後大きく変わる可能性があります　２０１３年３月２８日<br>
+          (Special Thanks @iruka3氏)<br>
+          </p>
+ <br class="x"><br>
+  <!------------------------------------------------------------------------------------------>
+        
+          <h2>全命令共通のアドレッシングモード</h2>
+          <h3>即値アドレッシング（命令長は１ワード１６ビット）</h3>
+          <p>bit13,12が共に0ならば、bit7～0の値がそのまま命令実行に必要な「<font color="#ff0000">値</font>」になる。</p>
+          <table border="1" class="ls">
+            <tbody>
+              <tr>
+                <th width="18" height="13">15</th>
+                <th width="18" height="13">14</th>
+                <th width="18" height="13">13</th>
+                <th width="18" height="13">12</th>
+                <th width="18" height="13">11</th>
+                <th width="18" height="13">10</th>
+                <th width="18" height="13">9</th>
+                <th width="18" height="13">8</th>
+                <th width="18" height="13">7</th>
+                <th width="18" height="13">6</th>
+                <th width="18" height="13">5</th>
+                <th width="18" height="13">4</th>
+                <th width="18" height="13">3</th>
+                <th width="18" height="13">2</th>
+                <th width="18" height="13">1</th>
+                <th width="18" height="13">0</th>
+ 
+              
+               </tr>
+              <tr>
+                <td>&nbsp;－</td>
+                <td>&nbsp;－</td>
+                <td bgcolor="#ff8888">&nbsp;０</td>
+                <td bgcolor="#ff8888">&nbsp;０</td>
+                <td>&nbsp;－</td>
+                <td>&nbsp;－</td>
+                <td>&nbsp;－</td>
+                <td>&nbsp;－</td>
+                <td colspan="8">　即値（0～255)</td>
+              </tr></tbody>
+          </table>
+          <br>
+          <br class="x">
+
+
+          <h3>レジスタ直接アドレッシング（命令長は１ワード１６ビット）</h3>
+          <p>bit13=0,bit12=1ならば、bit7～0がレジスタ番号となり、そのレジスタ値が命令実行に必要な「<font color="#ff0000">値</font>」になる。</p>
+          <table border="1" class="ls">
+            <tbody>
+              <tr>
+                <th width="18" height="13">15</th>
+                <th width="18" height="13">14</th>
+                <th width="18" height="13">13</th>
+                <th width="18" height="13">12</th>
+                <th width="18" height="13">11</th>
+                <th width="18" height="13">10</th>
+                <th width="18" height="13">9</th>
+                <th width="18" height="13">8</th>
+                <th width="18" height="13">7</th>
+                <th width="18" height="13">6</th>
+                <th width="18" height="13">5</th>
+                <th width="18" height="13">4</th>
+                <th width="18" height="13">3</th>
+                <th width="18" height="13">2</th>
+                <th width="18" height="13">1</th>
+                <th width="18" height="13">0</th>
+ 
+              
+               </tr>
+              <tr>
+                <td>&nbsp;－</td>
+                <td>&nbsp;－</td>
+                <td bgcolor="#ff8888">&nbsp;０</td>
+                <td bgcolor="#ff8888">&nbsp;1</td>
+                <td>&nbsp;－</td>
+                <td>&nbsp;－</td>
+                <td>&nbsp;－</td>
+                <td>&nbsp;－</td>
+                <td colspan="8">　レジスタ番号（0～255)</td>
+              </tr></tbody>
+          </table>
+          <br>
+          <br class="x">
+
+ <h3>レジスタ間接アドレッシング（命令長は１ワード１６ビット）</h3>
+          <p>bit13=1,bit12=0ならば、bit7～0がレジスタ番号となり、そのレジスタ値が示す主メモリの内容が命令実行に必要な「<font color="#ff0000">値</font>」になる。</p>
+          <table border="1" class="ls">
+            <tbody>
+              <tr>
+                <th width="18" height="13">15</th>
+                <th width="18" height="13">14</th>
+                <th width="18" height="13">13</th>
+                <th width="18" height="13">12</th>
+                <th width="18" height="13">11</th>
+                <th width="18" height="13">10</th>
+                <th width="18" height="13">9</th>
+                <th width="18" height="13">8</th>
+                <th width="18" height="13">7</th>
+                <th width="18" height="13">6</th>
+                <th width="18" height="13">5</th>
+                <th width="18" height="13">4</th>
+                <th width="18" height="13">3</th>
+                <th width="18" height="13">2</th>
+                <th width="18" height="13">1</th>
+                <th width="18" height="13">0</th>
+ 
+              
+               </tr>
+              <tr>
+                <td>&nbsp;－</td>
+                <td>&nbsp;－</td>
+                <td bgcolor="#ff8888">&nbsp;０</td>
+                <td bgcolor="#ff8888">&nbsp;1</td>
+                <td>&nbsp;－</td>
+                <td>&nbsp;－</td>
+                <td>&nbsp;－</td>
+                <td>&nbsp;－</td>
+                <td colspan="8">　レジスタ番号（0～255)</td>
+              </tr></tbody>
+          </table>
+          <br>
+          <br class="x">
+
+<h3>24bit即値アドレッシング（命令長は２ワード３２ビット）</h3>
+          <p>bit13=1,bit12=1ならば、1ワード目のbit7～0と、２ワード目全体を合わせた24biの内容が、命令実行に必要な「<font color="#ff0000">値</font>」になる。<br>
+          但しRETRIF-16改は24bit指定のアドレッシングや演算はサポートしてませんので、上位8bitは捨てられ下位16bitのみが「値」になる。<br>
+          　　　　　　　</p>
+          <table border="1" class="ls">
+            <tbody>
+              <tr>
+                <th width="18" height="13">15</th>
+                <th width="18" height="13">14</th>
+                <th width="18" height="13">13</th>
+                <th width="18" height="13">12</th>
+                <th width="18" height="13">11</th>
+                <th width="18" height="13">10</th>
+                <th width="18" height="13">9</th>
+                <th width="18" height="13">8</th>
+                <th width="18" height="13">7</th>
+                <th width="18" height="13">6</th>
+                <th width="18" height="13">5</th>
+                <th width="18" height="13">4</th>
+                <th width="18" height="13">3</th>
+                <th width="18" height="13">2</th>
+                <th width="18" height="13">1</th>
+                <th width="18" height="13">0</th>
+                <th width="18" height="13">15</th>
+                <th width="18" height="13">14</th>
+                <th width="18" height="13">13</th>
+                <th width="18" height="13">12</th>
+                <th width="18" height="13">11</th>
+                <th width="18" height="13">10</th>
+                <th width="18" height="13">9</th>
+                <th width="18" height="13">8</th>
+                <th width="18" height="13">7</th>
+                <th width="18" height="13">6</th>
+                <th width="18" height="13">5</th>
+                <th width="18" height="13">4</th>
+                <th width="18" height="13">3</th>
+                <th width="18" height="13">2</th>
+                <th width="18" height="13">1</th>
+                <th width="18" height="13">0</th>
+              
+               </tr>
+              <tr>
+                <td>&nbsp;－</td>
+                <td>&nbsp;－</td>
+                <td bgcolor="#ff8888">&nbsp;1</td>
+                <td bgcolor="#ff8888">&nbsp;1</td>
+                <td>&nbsp;－</td>
+                <td>&nbsp;－</td>
+                <td>&nbsp;－</td>
+                <td>&nbsp;－</td>
+                <td colspan="24">　24bit即値　但し上位８ビット無視されるので 表現できる範囲は0～65535&nbsp;　</td>
+              </tr></tbody>
+          </table>
+          <br>
+          <br class="x">
+  <h2>演算命令（比較命令）</h2>
+          <h3>命令上位８bit</h3>
+          <table border="1" class="ls">
+            <tbody>
+              <tr>
+                <th width="18" height="13">15</th>
+                <th width="18" height="13">14</th>
+                <th width="18" height="13">13</th>
+                <th width="18" height="13">12</th>
+                <th width="18" height="13">11</th>
+                <th width="18" height="13">10</th>
+                <th width="18" height="13">9</th>
+                <th width="18" height="13">8</th>
+               
+ 
+              
+               </tr>
+              <tr>
+                <td>&nbsp;１</td>
+                <td>&nbsp;０</td>
+                <td bgcolor="#ff8888">&nbsp;ー</td>
+                <td bgcolor="#ff8888">&nbsp;ー</td>
+                <td colspan="3">&nbsp;&nbsp;演算種別</td>
+                <td bgcolor="#ffff00">&nbsp;＊</td>
+              </tr></tbody>
+          </table>
+          <p>Accと「<font color="#ff0000">値</font>」との演算を行う。「<font color="#ff0000">値</font>」が何を指すのかは前述のアドレッシングモードを参照方。<br>
+          bit8が１ならば、フラグのみ変化し、Accは変化しない。</p><br class="x">
+          <h3>演算種別とフラグの変化</h3>
+          <p>ニモニックは左がbit8=0（演算モード）の場合。右はbit8=0（比較モード）の場合。比較モードではフラグのみ変化し、Accは変化しない。</p>
+          <table border="1" class="ls">
+            <tbody>
+              <tr>
+                <th width="50" height="13">演算種別</th>
+                <th width="82" height="13" colspan="2">ニモニック&nbsp;</th>
+                <th width="120" height="13">動作</th>
+                <th width="180" height="13">Cフラグの変化</th>
+                <th width="190" height="13">&nbsp;Fフラグの変化</th>
+                <th width="180" height="13">Mフラグの変化</th>
+              </tr>
+              <tr>
+                <td>&nbsp;000</td>
+                <td width="41">&nbsp;LD　</td>
+                <td>&nbsp;LDT</td>
+                <td>&nbsp;&nbsp;値　→　Acc</td>
+                <td>&nbsp;変化せず</td>
+                <td>&nbsp;ロード値がFFFFなら１、他なら0</td>
+                <td>&nbsp;ロード値の最上位ビットと同じ</td>
+              
+              </tr><tr>
+                <td>&nbsp;001</td>
+                <td>&nbsp;SBC　</td>
+                <td>&nbsp;SCT</td>
+                <td>&nbsp;<font color="#ff0000">(未定) 最終調整中</font></td>
+                <td><font color="#ff0000">&nbsp;(未定) 最終調整中</font></td>
+                <td>&nbsp;演算結果がFFFFなら１、他なら０</td>
+                <td>&nbsp;演算結果の最上位ビットと同じ</td>
+              
+              </tr><tr>
+                <td>&nbsp;010</td>
+                <td>&nbsp;SUB　</td>
+                <td>&nbsp;SBT</td>
+                <td>&nbsp;ACC - 値 → Acc</td>
+                <td>&nbsp;０未満以下になると0、他なら1</td>
+                <td>&nbsp;演算結果がFFFFなら１、他なら０</td>
+                <td>&nbsp;演算結果の最上位ビットと同じ</td>
+              
+              </tr><tr>
+                <td>&nbsp;011</td>
+                <td>&nbsp;OR 　</td>
+                <td>&nbsp;ORT</td>
+                <td>&nbsp;ACC ｜ 値 → Acc</td>
+                <td>&nbsp;変化せず</td>
+                <td>&nbsp;演算結果がFFFFなら１、他なら０</td>
+                <td>&nbsp;演算結果の最上位ビットと同じ</td>
+              
+              </tr><tr>
+                <td>&nbsp;100</td>
+                <td>&nbsp;ADD　</td>
+                <td>&nbsp;ADT</td>
+                <td>&nbsp;ACC + 値 → Acc</td>
+                <td>&nbsp;FFFFを超えると１、他なら０</td>
+                <td>&nbsp;演算結果がFFFFなら１、他なら０</td>
+                <td>&nbsp;演算結果の最上位ビットと同じ</td>
+              
+              </tr><tr>
+                <td>&nbsp;101</td>
+                <td>&nbsp;AND　</td>
+                <td>&nbsp;ANT</td>
+                <td>&nbsp;ACC ＆ 値 → Acc</td>
+                <td>&nbsp;変化せず</td>
+                <td>&nbsp;演算結果がFFFFなら１、他なら０</td>
+                <td>&nbsp;演算結果の最上位ビットと同じ</td>
+              
+              </tr><tr>
+                <td>&nbsp;110</td>
+                <td>&nbsp;ADC</td>
+                <td>&nbsp;ACT</td>
+                <td>&nbsp;ACC + 値 + CF → Acc</td>
+                <td>&nbsp;FFFFを超えると１、他なら０</td>
+                <td>&nbsp;演算結果がFFFFなら１、他なら０</td>
+                <td>&nbsp;演算結果の最上位ビットと同じ</td>
+              
+              </tr><tr>
+                <td>&nbsp;111</td>
+                <td>&nbsp;XOR</td>
+                <td>&nbsp;XOT</td>
+                <td>&nbsp;ACC ＾ 値 → Acc</td>
+                <td>&nbsp;変化せず</td>
+                <td>&nbsp;演算結果がFFFFなら１、他なら０</td>
+                <td>&nbsp;演算結果の最上位ビットと同じ</td>
+              
+            </tr></tbody>
+          </table>
+          <br>
+          <p><br>
+          <br>
+          </p>
+          <br>
+          <br>
+          <br>
+          <br class="x">
+
+
+
+ <h2>分岐命令</h2>
+          <h3>命令上位８bit</h3>
+          <table border="1" class="ls">
+            <tbody>
+              <tr>
+                <th width="18" height="13">15</th>
+                <th width="18" height="13">14</th>
+                <th width="18" height="13">13</th>
+                <th width="18" height="13">12</th>
+                <th width="18" height="13">11</th>
+                <th width="18" height="13">10</th>
+                <th width="18" height="13">9</th>
+                <th width="18" height="13">8</th>
+               
+ 
+              
+               </tr>
+              <tr>
+                <td>&nbsp;０</td>
+                <td bgcolor="#ffff00">&nbsp;＊</td>
+                <td bgcolor="#ff8888">&nbsp;ー</td>
+                <td bgcolor="#ff8888">&nbsp;ー</td>
+                <td colspan="2" bgcolor="#88ffff">&nbsp;&nbsp;方向&nbsp;</td>
+                <td colspan="2" bgcolor="#ffff00">&nbsp;＊&nbsp;＊</td>
+              </tr></tbody>
+          </table>
+          <p>bit14,9,8 で指定する条件に一致したら「<font color="#ff0000">値</font>」とbit11,10で決定するアドレスに分岐する。<br>
+          相対分岐の場合の起点は、本命令ではなく次の命令が基点となる。</p><br class="x">
+          <h3>分岐条件と分岐方向</h3>
+         
+          <table border="1" class="ls">
+            <tbody>
+              <tr>
+                <th width="70" height="13">bit14/9/8</th>
+                <th width="70" height="13">ニモニック&nbsp;</th>
+                <th width="150" height="13">分岐条件</th>
+              </tr>
+              <tr>
+                <td>&nbsp;000</td>
+                <td>&nbsp;JMP　</td>
+                <td>&nbsp;&nbsp;無条件</td>
+              </tr><tr>
+                <td>&nbsp;001</td>
+                <td>&nbsp;JBP　</td>
+                <td>&nbsp;<font color="#ff0000">(未定) 最終調整中</font></td>
+              </tr><tr>
+                <td>&nbsp;010</td>
+                <td>&nbsp;JNF　</td>
+                <td>&nbsp;Fフラグが立ってない</td>
+              </tr><tr>
+                <td>&nbsp;011</td>
+                <td>&nbsp;JF 　</td>
+                <td>&nbsp;Fフラグが立っている</td>
+              </tr><tr>
+                <td>&nbsp;100</td>
+                <td>&nbsp;JNC　</td>
+                <td>&nbsp;Cフラグが立っている</td>
+              </tr><tr>
+                <td>&nbsp;101</td>
+                <td>&nbsp;JC　</td>
+                <td>&nbsp;Cフラグが立っている</td>
+              </tr><tr>
+                <td>&nbsp;110</td>
+                <td>&nbsp;JNM</td>
+                <td>&nbsp;Mフラグが立ってない</td>
+              </tr><tr>
+                <td>&nbsp;111</td>
+                <td>&nbsp;JM</td>
+                <td>&nbsp;Mフラグが立っている</td>
+              </tr></tbody>
+          </table>
+          <table border="1" class="ls">
+            <tbody>
+              <tr>
+                <th width="40" height="13">方向</th>
+                <th width="130" height="13">分岐方向</th>
+              </tr>
+              <tr>
+                <td>&nbsp;00</td>
+                <td>&nbsp;絶対</td>
+              </tr><tr>
+                <td>&nbsp;01</td>
+                <td>&nbsp;後方相対</td>
+              </tr><tr>
+                <td>&nbsp;10</td>
+                <td>&nbsp;前方相対</td>
+              
+              </tr><tr>
+                <td>&nbsp;011</td>
+                <td><font color="#ff0000">(未定) 最終調整中</font></td>
+              
+            </tr></tbody>
+          </table>
+          <br>
+          <br>
+          <br>
+          <br class="x">
+
+<h2>その他の命令</h2>
+          <h3>命令上位８bit</h3>
+          <table border="1" class="ls">
+            <tbody>
+              <tr>
+                <th width="18" height="13">15</th>
+                <th width="18" height="13">14</th>
+                <th width="18" height="13">13</th>
+                <th width="18" height="13">12</th>
+                <th width="18" height="13">11</th>
+                <th width="18" height="13">10</th>
+                <th width="18" height="13">9</th>
+                <th width="18" height="13">8</th>
+               
+ 
+              
+               </tr>
+              <tr>
+                <td>&nbsp;１</td>
+                <td>&nbsp;１</td>
+                <td bgcolor="#ff8888">&nbsp;ー</td>
+                <td bgcolor="#ff8888">&nbsp;ー</td>
+                <td colspan="4" bgcolor="#88ffff">&nbsp;&nbsp;命令種別</td>
+              </tr></tbody>
+          </table>
+          <br class="x">
+          <h3>演算種別とフラグの変化</h3>
+          <p>命令種別の「－」は１でも０でも同じである。（未デコードbit）</p>
+
+          <table border="1" class="ls">
+            <tbody>
+              <tr>
+                <th width="70" height="13">命令種別</th>
+                <th width="70" height="13">ニモニック&nbsp;</th>
+                <th width="550" height="13">動作</th>
+              </tr>
+              <tr>
+                <td>&nbsp;000-</td>
+                <td>&nbsp;LDV　</td>
+                <td>&nbsp;「<font color="#ff0000">値</font>」で示されたVRAMアドレスの内容　→　Acc</td>
+              </tr><tr>
+                <td>&nbsp;001-</td>
+                <td>&nbsp;LDP　</td>
+                <td>&nbsp;PC（次の命令のアドレス） + 「<font color="#ff0000">値</font>」→　Acc</td>
+              </tr><tr>
+                <td>&nbsp;010-</td>
+                <td>&nbsp;ST　</td>
+                <td>&nbsp;Acc →　主メモリの「<font color="#ff0000">値</font>」で示されたアドレス</td>
+              </tr><tr>
+                <td>&nbsp;011-</td>
+                <td>&nbsp;SR 　</td>
+                <td>&nbsp;Accを右シフト、左には０が詰められる。フラグは無変化。「<font color="#ff0000">値</font>」は意味をもたない</td>
+              </tr><tr>
+                <td>&nbsp;100-</td>
+                <td>&nbsp;SL　</td>
+                <td>&nbsp;Accを左シフト、右には０が詰められる。フラグは無変化。「<font color="#ff0000">値</font>」は意味をもたない</td>
+              </tr><tr>
+                <td>&nbsp;101-</td>
+                <td>&nbsp;IN</td>
+                <td>&nbsp;パネル上のトグルスイッチと「<font color="#ff0000">値</font>」のAND →　Acc　　（トグルSWが上向きならH)</td>
+              </tr><tr>
+                <td>&nbsp;110-</td>
+                <td>&nbsp;OUT</td>
+                <td>&nbsp;「<font color="#ff0000">値</font>」をLED上段に、Accの値をLEDに転送　（H=点灯）</td>
+              
+              </tr><tr>
+                <td>&nbsp;1110</td>
+                <td>&nbsp;STV</td>
+                <td>&nbsp;Acc　→　「<font color="#ff0000">値</font>」で示されたVRAMアドレスの内容</td>
+              
+              </tr><tr>
+                <td>&nbsp;1111</td>
+                <td>&nbsp;HALT</td>
+                <td>&nbsp;停止</td>
+              
+            </tr></tbody>
+         </table>
+          <br>
+          <br>
+          <br>
+          <br class="x">
+
+          <!------------------------------------------------------------------------------------------>
+          <p><a href="http://diode.matrix.jp/index.htm"><br class="x">
+          </a></p>
+          <h2>VRAMマッピング</h2>
+          <p>VRAMは　左上が0000番地、右下が7FFF番地です。　但しVRAMのアドレス最上位ビットはデコードしていないので<br>
+          左上を8000番地、右下がFFFF番地としてアクセスしても同じです。<br>
+          RETROF-16の主メモリのデータ幅は16bitですが、VRAMのデータ幅は8bitです。　このためCPUから見た場合VRAMの上位8bitは存在しない事になります。つまり、上位8bitに書き込んでも何もおきず、上位8bitを読み込んだら不定値（おそらく0xFF）が返ります。</p>
+          <p>VRAMの8bitは更に上位4bitと下位4bitがそれぞれ１つの画素（ピクセル）に対応します。（上位が右画素、下位が左画素）</p>
+          <p><br>
+          CPUからみたVRAM</p>
+          <table border="1" class="ls">
+            <tbody>
+              <tr>
+                <th width="18" height="13">15</th>
+                <th width="18" height="13">14</th>
+                <th width="18" height="13">13</th>
+                <th width="18" height="13">12</th>
+                <th width="18" height="13">11</th>
+                <th width="18" height="13">10</th>
+                <th width="18" height="13">9</th>
+                <th width="18" height="13">8</th>
+                <th width="18" height="13">7</th>
+                <th width="18" height="13">6</th>
+                <th width="18" height="13">5</th>
+                <th width="18" height="13">4</th>
+                <th width="18" height="13">3</th>
+                <th width="18" height="13">2</th>
+                <th width="18" height="13">1</th>
+                <th width="18" height="13">0</th>
+ 
+              
+               </tr>
+              <tr>
+                <td colspan="8" rowspan="2">&nbsp;bit15～bit８は存在しない&nbsp;</td>
+                <td colspan="4">　&nbsp;&nbsp;&nbsp;左画素</td>
+                <td colspan="4">&nbsp;　右画素</td>
+              
+              </tr><tr>
+                <td><font color="#ffffff">&nbsp;</font></td>
+                <td bgcolor="#ff0000"><font color="#ffffff">&nbsp;R</font></td>
+                <td bgcolor="#009900"><font color="#ffffff">&nbsp;G</font></td>
+                <td bgcolor="#0000ff"><font color="#ffffff">&nbsp;B</font></td>
+                <td><font color="#ffffff">&nbsp;</font></td>
+                <td bgcolor="#ff0000"><font color="#ffffff">&nbsp;R</font></td>
+                <td bgcolor="#009900"><font color="#ffffff">&nbsp;G</font></td>
+                <td bgcolor="#0000ff"><font color="#ffffff">&nbsp;B</font></td>
+              </tr></tbody>
+          </table>
+          <p>横方向１列で128ワード（＝128バイト＝256画素）<br>
+          縦方向は256画素、よってVRAMの総容量は128×256=32KB</p>
+          <br>
+          <br class="x">
+          <p>上図では各画素１bit余ってますが、これの使用方法は未定です。　「中間色表示用」、「ブリンク用」、<br>
+          「ゲーム時の隠れキャラ（見かけは同じだが値が違う事を利用する昔のゲームテクニック）」などを考えております。<br>
+          基板上はこの部分は別回路を組める様、娘基板（ドーターボード）用のソケットを設置しています（2013年３月）<br>
+          </p>
+          <p><a href="http://diode.matrix.jp/index.htm">メインページに戻る</a></p>
+        </div>
+          </div>
+        </div>
+        <!-- メインカラム終了 --><!-- サイドバー開始 
+           <!-- サイドバー終了 --><br class="x">
+      </div>
+      <!-- コンテンツ終了 --><!-- フッタ開始 -->
+      <div id="footer">
+        <address>Copyright (C) 1952-2013 GATARO.T</address>
+      </div>
+      <!-- フッタ終了 --> </div>
+    <!-- ページ終了 
+     コンテナ終了 -->
+  
+
+</body></html>
