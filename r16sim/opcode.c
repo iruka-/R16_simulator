@@ -1,16 +1,19 @@
 /** *********************************************************************************
- *	ƒIƒyƒR[ƒh‚Ì‰ğßÀs.
+ *	ã‚ªãƒšã‚³ãƒ¼ãƒ‰ã®è§£é‡ˆå®Ÿè¡Œ.
  ************************************************************************************
  */
 #include <stdio.h>
 #include <stdlib.h>
+
+#define Extern /* */
+
 #include "opcode.h"
 #include "led.h"
 
 void VRAM_output(int adrs,int data);
 extern	int	SW_inp ;
 /** *********************************************************************************
- *	AccŒ‹‰Ê‚©‚çAƒtƒ‰ƒO z,c,m‚ğ‘S•”XV‚·‚é.
+ *	Accçµæœã‹ã‚‰ã€ãƒ•ãƒ©ã‚° z,c,mã‚’å…¨éƒ¨æ›´æ–°ã™ã‚‹.
  ************************************************************************************
  */
 void flag_update_zcm(int acc)
@@ -29,7 +32,7 @@ void flag_update_zcm(int acc)
 
 }
 /** *********************************************************************************
- *	AccŒ‹‰Ê‚©‚çAƒtƒ‰ƒO z,m‚ğXV‚·‚é. c=0 ŒÅ’è.
+ *	Accçµæœã‹ã‚‰ã€ãƒ•ãƒ©ã‚° z,mã‚’æ›´æ–°ã™ã‚‹. c=0 å›ºå®š.
  ************************************************************************************
  */
 void flag_update_zm(int acc)
@@ -46,15 +49,15 @@ void flag_update_zm(int acc)
 	reg.c  = 0;
 }
 /** *********************************************************************************
- *	ƒIƒyƒR[ƒh‚ğ‰ğÍ‚µ‚ÄAÀŒøƒAƒhƒŒƒX(ea) ‚ğ‹‚ß‚é.
+ *	ã‚ªãƒšã‚³ãƒ¼ãƒ‰ã‚’è§£æã—ã¦ã€å®ŸåŠ¹ã‚¢ãƒ‰ãƒ¬ã‚¹(ea) ã‚’æ±‚ã‚ã‚‹.
  ************************************************************************************
- *	‚Æ‚¢‚¢‚Â‚ÂAÀŒøƒAƒhƒŒƒX‚Ì•]‰¿Œ‹‰Êi‚Â‚Ü‚èƒIƒyƒ‰ƒ“ƒhj‚ğ•Ô‚·.
+ *	ã¨ã„ã„ã¤ã¤ã€å®ŸåŠ¹ã‚¢ãƒ‰ãƒ¬ã‚¹ã®è©•ä¾¡çµæœï¼ˆã¤ã¾ã‚Šã‚ªãƒšãƒ©ãƒ³ãƒ‰ï¼‰ã‚’è¿”ã™.
  */
 int	opadrs(int code)
 {
 	int ea = 0;
 	int xx = code & XX_MASK;
-	// ƒAƒhƒŒƒbƒVƒ“ƒOCüq(xx)
+	// ã‚¢ãƒ‰ãƒ¬ãƒƒã‚·ãƒ³ã‚°ä¿®é£¾å­(xx)
 	switch(xx) {
 	 case XX_IMM8 :	ea = code & 0xff;		 break;
 	 case XX_REG8 :	ea = memory[code & 0xff];break;
@@ -65,20 +68,20 @@ int	opadrs(int code)
 	}
 	return ea;
 }
-//	ƒXƒgƒAŒn–½—ß‚Ì‚½‚ß‚ÌƒXƒgƒA”Ô’n‚Ì•]‰¿‚ğÀs‚·‚é.	opadrs‚Æ“¯ˆêÀ‘•.
+//	ã‚¹ãƒˆã‚¢ç³»å‘½ä»¤ã®ãŸã‚ã®ã‚¹ãƒˆã‚¢ç•ªåœ°ã®è©•ä¾¡ã‚’å®Ÿè¡Œã™ã‚‹.	opadrsã¨åŒä¸€å®Ÿè£….
 int	stadrs(int code)
 {
 	return opadrs(code);
 }
 
 #if	0
-//	ƒXƒgƒAŒn–½—ß‚Ì‚½‚ß‚ÌƒXƒgƒA”Ô’n‚Ì•]‰¿‚ğÀs‚·‚é.
-//	–ß‚è’lƒXƒgƒA‚·‚×‚«”Ô’n(0..0x0000ffff) ‚à‚µ‚­‚Í (-1)ƒXƒgƒAo—ˆ‚È‚¢–½—ßƒpƒ^ƒ“.
+//	ã‚¹ãƒˆã‚¢ç³»å‘½ä»¤ã®ãŸã‚ã®ã‚¹ãƒˆã‚¢ç•ªåœ°ã®è©•ä¾¡ã‚’å®Ÿè¡Œã™ã‚‹.
+//	æˆ»ã‚Šå€¤ï¼ã‚¹ãƒˆã‚¢ã™ã¹ãç•ªåœ°(0..0x0000ffff) ã‚‚ã—ãã¯ (-1)ã‚¹ãƒˆã‚¢å‡ºæ¥ãªã„å‘½ä»¤ãƒ‘ã‚¿ãƒ³.
 int	stadrs(int code)
 {
 	int ea = 0;
 	int xx = code & XX_MASK;
-	// ƒAƒhƒŒƒbƒVƒ“ƒOCüq(xx)
+	// ã‚¢ãƒ‰ãƒ¬ãƒƒã‚·ãƒ³ã‚°ä¿®é£¾å­(xx)
 	switch(xx) {
 	 case XX_IMM8 :	return -1;			// ST Imm error!
 	 case XX_REG8 :	ea =        code & 0xff ;break;
@@ -92,15 +95,15 @@ int	stadrs(int code)
 
 
 /** *********************************************************************************
- *	ƒIƒyƒR[ƒh‚ğ‰ğÍ‚µ‚ÄA•ªŠòæÀŒøƒAƒhƒŒƒX(ea) ‚ğ‹‚ß‚é.
+ *	ã‚ªãƒšã‚³ãƒ¼ãƒ‰ã‚’è§£æã—ã¦ã€åˆ†å²å…ˆå®ŸåŠ¹ã‚¢ãƒ‰ãƒ¬ã‚¹(ea) ã‚’æ±‚ã‚ã‚‹.
  ************************************************************************************
- *	•ªŠòŒn‚Í XX ‚ğ‰ğß‚µ‚½ŒãAdd‚ğ‰ğß‚·‚é‚±‚Æ‚É‚È‚Á‚Ä‚¢‚é.
+ *	åˆ†å²ç³»ã¯ XX ã‚’è§£é‡ˆã—ãŸå¾Œã€ddã‚’è§£é‡ˆã™ã‚‹ã“ã¨ã«ãªã£ã¦ã„ã‚‹.
  */
 int	jpadrs(int code)
 {
 	int ea = opadrs(code);
 	int dd = code & DD_MASK;
-	// ƒfƒBƒXƒvƒŒƒCƒXƒƒ“ƒgCüq(dd)
+	// ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã‚¹ãƒ¡ãƒ³ãƒˆä¿®é£¾å­(dd)
 	switch(dd) {
 	 case DD_ABS :	break;
 	 case DD_FWD :	ea = reg.pc + ea; break;
@@ -108,18 +111,18 @@ int	jpadrs(int code)
 	 case DD_FWDC:	ea = reg.pc + ea + reg.c; break;
 	 default:	break;
 	}
-	return ea & 0xffff;	// ƒAƒhƒŒƒX‚Í16bit‚ğ’´‚¦‚È‚¢‚æ‚¤‚É‚·‚é.
+	return ea & 0xffff;	// ã‚¢ãƒ‰ãƒ¬ã‚¹ã¯16bitã‚’è¶…ãˆãªã„ã‚ˆã†ã«ã™ã‚‹.
 }
 /** *********************************************************************************
- *	ƒIƒyƒR[ƒh‚ğ‰ğÍ‚µ‚ÄAVRAMÀŒøƒAƒhƒŒƒX(ea) ‚ğ‹‚ß‚é.
+ *	ã‚ªãƒšã‚³ãƒ¼ãƒ‰ã‚’è§£æã—ã¦ã€VRAMå®ŸåŠ¹ã‚¢ãƒ‰ãƒ¬ã‚¹(ea) ã‚’æ±‚ã‚ã‚‹.
  ************************************************************************************
- *	‚Æ‚¢‚¢‚Â‚ÂAVRAMÀŒøƒAƒhƒŒƒX‚Ì•]‰¿Œ‹‰Êi‚Â‚Ü‚èƒIƒyƒ‰ƒ“ƒhj‚ğ•Ô‚·.
+ *	ã¨ã„ã„ã¤ã¤ã€VRAMå®ŸåŠ¹ã‚¢ãƒ‰ãƒ¬ã‚¹ã®è©•ä¾¡çµæœï¼ˆã¤ã¾ã‚Šã‚ªãƒšãƒ©ãƒ³ãƒ‰ï¼‰ã‚’è¿”ã™.
  */
 int	vramadrs(int code)
 {
 	int ea = 0;
 	int xx = code & XX_MASK;
-	// ƒAƒhƒŒƒbƒVƒ“ƒOCüq(xx)
+	// ã‚¢ãƒ‰ãƒ¬ãƒƒã‚·ãƒ³ã‚°ä¿®é£¾å­(xx)
 	switch(xx) {
 	 case XX_IMM8 :	ea = code & 0xff;		break;
 	 case XX_REG8 :	ea = memory[code & 0xff];break;
@@ -131,9 +134,9 @@ int	vramadrs(int code)
 	return ea;
 }
 /** *********************************************************************************
- *	‚±‚Á‚©‚ç‰º‚ÍA–½—ß‚ÌÀs‚ğs‚È‚¤.
+ *	ã“ã£ã‹ã‚‰ä¸‹ã¯ã€å‘½ä»¤ã®å®Ÿè¡Œã‚’è¡Œãªã†.
  ************************************************************************************
- {"JMP","JMP always"  ,"00xxdd00"  ,f_JMP,d_JMP},//-,-,-,–³ğŒ‚É•ªŠò‚·‚é
+ {"JMP","JMP always"  ,"00xxdd00"  ,f_JMP,d_JMP},//-,-,-,ç„¡æ¡ä»¶ã«åˆ†å²ã™ã‚‹
  */
 int f_JMP (int code,OPCODE *tab)
 {
@@ -144,9 +147,9 @@ int f_JMP (int code,OPCODE *tab)
 int f_JBP (int code,OPCODE *tab)
 {
 	int ea = jpadrs(code);
-	int blank = 1;	// ‰¼.	‚½‚Ô‚ñƒuƒ‰ƒ“ƒLƒ“ƒO‘Ò‚¿‚¾‚Æv‚¤‚Ì‚ÅAƒuƒ‰ƒ“ƒLƒ“ƒO‚É‚µ‚Ä‚µ‚Ü‚¤B
+	int blank = 1;	// ä»®.	ãŸã¶ã‚“ãƒ–ãƒ©ãƒ³ã‚­ãƒ³ã‚°å¾…ã¡ã ã¨æ€ã†ã®ã§ã€ãƒ–ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã«ã—ã¦ã—ã¾ã†ã€‚
 	if(	blank ) {
-		reg.pc = ea;	//À‘•“I‚É‚Í JNB=JMP‚É‚È‚Á‚Ä‚µ‚Ü‚¤.
+		reg.pc = ea;	//å®Ÿè£…çš„ã«ã¯ JNB=JMPã«ãªã£ã¦ã—ã¾ã†.
 	}
 	return 0;
 }
@@ -238,7 +241,7 @@ int f_STP (int code,OPCODE *tab)
 	int ea = stadrs(code);
 //	if(	ea >= 0 ) 
 	{
-		// PC‚Ì’l‚ğƒXƒgƒA.
+		// PCã®å€¤ã‚’ã‚¹ãƒˆã‚¢.
 		memory[ea] = reg.pc;
 	}
 	return 0;
@@ -272,10 +275,10 @@ int f_ADC (int code,OPCODE *tab)
 }
 int f_SBB (int code,OPCODE *tab)
 {
-//	int acc = reg.acc - opadrs(code) - reg.c;		//•’Ê‚ÌSBC–½—ß‚È‚ç...
-	int acc = reg.acc - opadrs(code) - (1-reg.c);	//ˆø‚«Z‚Ícarry‚Ì˜_—‚ª‹t‚É‚È‚é.
+//	int acc = reg.acc - opadrs(code) - reg.c;		//æ™®é€šã®SBCå‘½ä»¤ãªã‚‰...
+	int acc = reg.acc - opadrs(code) - (1-reg.c);	//å¼•ãç®—æ™‚ã¯carryã®è«–ç†ãŒé€†ã«ãªã‚‹.
 	flag_update_zcm(acc);
-	// SC/MP-II‚Ìƒ{ƒ[‚ğƒGƒ~ƒ…ƒŒ[ƒg.
+	// SC/MP-IIã®ãƒœãƒ­ãƒ¼ã‚’ã‚¨ãƒŸãƒ¥ãƒ¬ãƒ¼ãƒˆ.
 	reg.c ^= 1;
 
 	if( (code & OP_TEST)==0 ) {
@@ -324,9 +327,9 @@ int f_STV (int code,OPCODE *tab)
 	int ea = stadrs(code);
 //	if(	ea >= 0 ) 
 	{
-		// VRAMƒXƒgƒA‚ğÀs.
+		// VRAMã‚¹ãƒˆã‚¢ã‚’å®Ÿè¡Œ.
 		vram[ea] = reg.acc;
-		// ‚Â‚¢‚Å‚ÉAVRAMXV.
+		// ã¤ã„ã§ã«ã€VRAMæ›´æ–°.
 		VRAM_output(ea,reg.acc);
 //		printf("STV	0x%x,0x%x\n",ea,reg.acc);
 	}
@@ -337,7 +340,7 @@ int f_ST  (int code,OPCODE *tab)
 	int ea = stadrs(code);
 //	if(	ea >= 0 ) 
 	{
-		// å‹L‰¯ƒXƒgƒA‚ğÀs.
+		// ä¸»è¨˜æ†¶ã‚¹ãƒˆã‚¢ã‚’å®Ÿè¡Œ.
 		memory[ea] = reg.acc;
 	}
 	return 0;
@@ -352,20 +355,20 @@ int f_OUT (int code,OPCODE *tab)
 }
 int f_SFR (int code,OPCODE *tab)
 {
-	int acc = reg.acc;		// ƒVƒtƒg‘O‚Ì’l‚ğ‚¿‚å‚Á‚Æƒƒ‚.
-	reg.acc >>= 1;			// ‰EƒVƒtƒg.
+	int acc = reg.acc;		// ã‚·ãƒ•ãƒˆå‰ã®å€¤ã‚’ã¡ã‚‡ã£ã¨ãƒ¡ãƒ¢.
+	reg.acc >>= 1;			// å³ã‚·ãƒ•ãƒˆ.
 
 	flag_update_zm(reg.acc);
-	reg.c = ( acc & 1 ) ;	// ƒLƒƒƒŠ[ƒtƒ‰ƒO‚ÍƒVƒtƒg‘O‚Ì’l‚ÌLSB
+	reg.c = ( acc & 1 ) ;	// ã‚­ãƒ£ãƒªãƒ¼ãƒ•ãƒ©ã‚°ã¯ã‚·ãƒ•ãƒˆå‰ã®å€¤ã®LSB
 	return 0;
 }
 int f_SFL (int code,OPCODE *tab)
 {
 	int acc = reg.acc;
-	acc <<= 1;				// ¶ƒVƒtƒg.
+	acc <<= 1;				// å·¦ã‚·ãƒ•ãƒˆ.
 	reg.acc =acc;
 
-	flag_update_zcm(acc);	// ƒtƒ‰ƒOXV‚Ì‚½‚ß‚É‚ÍŒ‹‰Ê‚Ì32bit’l‚ğ—^‚¦‚é.
+	flag_update_zcm(acc);	// ãƒ•ãƒ©ã‚°æ›´æ–°ã®ãŸã‚ã«ã¯çµæœã®32bitå€¤ã‚’ä¸ãˆã‚‹.
 	return 0;
 }
 int f_IN  (int code,OPCODE *tab)
@@ -373,7 +376,7 @@ int f_IN  (int code,OPCODE *tab)
 	int ea = stadrs(code);
 //	if(	ea >= 0 ) 
 	{
-		// ƒXƒCƒbƒ`’l‚ÌƒXƒgƒA‚ğÀs.
+		// ã‚¹ã‚¤ãƒƒãƒå€¤ã®ã‚¹ãƒˆã‚¢ã‚’å®Ÿè¡Œ.
 		memory[ea] = SW_inp;	//SW_input();
 	}
 	return 0;
@@ -383,7 +386,7 @@ int f_SCN (int code,OPCODE *tab)
 	int ea = stadrs(code);
 //	if(	ea >= 0 ) 
 	{
-		// JOY’l‚ÌƒXƒgƒA‚ğÀs.
+		// JOYå€¤ã®ã‚¹ãƒˆã‚¢ã‚’å®Ÿè¡Œ.
 		memory[ea] = JOY_input();
 	}
 	return 0;
@@ -391,14 +394,14 @@ int f_SCN (int code,OPCODE *tab)
 int f_HLT(int code,OPCODE *tab)
 {
 #if	0
-	return 1;	//I—¹.
+	return 1;	//çµ‚äº†.
 #else
 	int ea = reg.pc_bak - 1;
 	reg.pc = ea;
 	return 0;
 #endif
 }
-//	–¢’è‹`–½—ß.
+//	æœªå®šç¾©å‘½ä»¤.
 int f_und (int code,OPCODE *tab)
 {
 	return 0;

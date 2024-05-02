@@ -9,42 +9,46 @@
 
 typedef	unsigned short WORD;
 
-struct _OPCODE ;		// ‚¿‚å‚±‚Á‚ÆéŒ¾.
+struct _OPCODE ;		// ã¡ã‚‡ã“ã£ã¨å®£è¨€.
 
-//	–½—ßÀsŠÖ”‚Ìƒvƒƒgƒ^ƒCƒvŒ^.
+#ifndef Extern
+#define Extern extern
+#endif
+
+//	å‘½ä»¤å®Ÿè¡Œé–¢æ•°ã®ãƒ—ãƒ­ãƒˆã‚¿ã‚¤ãƒ—å‹.
 typedef int (*EMUFUNC) (int code,struct _OPCODE *tab);
-//	–½—ß‹tƒAƒZƒ“ƒuƒ‹ŠÖ”‚Ìƒvƒƒgƒ^ƒCƒvŒ^.
+//	å‘½ä»¤é€†ã‚¢ã‚»ãƒ³ãƒ–ãƒ«é–¢æ•°ã®ãƒ—ãƒ­ãƒˆã‚¿ã‚¤ãƒ—å‹.
 //typedef int (*DISFUNC) (int code,struct _OPCODE *tab);
 
 
 typedef	struct _OPCODE {
-	char *mnemonic;			// ƒjƒ‚
-	char *comment;			// ˆÓ–¡
-	char *pattern;			// ‹@ŠBŒê
-	EMUFUNC emufunc;		// –½—ßÀsŠÖ”
+	char *mnemonic;			// ãƒ‹ãƒ¢
+	char *comment;			// æ„å‘³
+	char *pattern;			// æ©Ÿæ¢°èª
+	EMUFUNC emufunc;		// å‘½ä»¤å®Ÿè¡Œé–¢æ•°
 	int	  data;				// 
 } OPCODE;
 
 
-#define	MEMSIZE		0x10000			// À‘•ƒƒ‚ƒŠ[ƒTƒCƒY (WORD)
-#define	VRAMSIZE	0x10000			// À‘•VRAMƒTƒCƒY (WORD)
+#define	MEMSIZE		0x10000			// å®Ÿè£…ãƒ¡ãƒ¢ãƒªãƒ¼ã‚µã‚¤ã‚º (WORD)
+#define	VRAMSIZE	0x10000			// å®Ÿè£…VRAMã‚µã‚¤ã‚º (WORD)
 
-//OPCODE  code_table[256];		// –½—ß•\(8bit)
+//OPCODE  code_table[256];		// å‘½ä»¤è¡¨(8bit)
 
 /** *********************************************************************************
- *	ƒƒ‚ƒŠ[ƒRƒ“ƒeƒLƒXƒg
+ *	ãƒ¡ãƒ¢ãƒªãƒ¼ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
  ************************************************************************************
  */
-WORD    memory[MEMSIZE];
+Extern WORD    memory[MEMSIZE];
 
 /** *********************************************************************************
- *	‚u‚q‚`‚lƒRƒ“ƒeƒLƒXƒg
+ *	ï¼¶ï¼²ï¼¡ï¼­ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
  ************************************************************************************
  */
 //WORD    vram[VRAMSIZE];
 
 /** *********************************************************************************
- *	ƒŒƒWƒXƒ^ƒRƒ“ƒeƒLƒXƒg
+ *	ãƒ¬ã‚¸ã‚¹ã‚¿ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆ
  ************************************************************************************
  */
 typedef	struct _CONTEXT {
@@ -54,16 +58,16 @@ typedef	struct _CONTEXT {
 	char	c;	// carry
 	char	m;	// minus
 //
-	WORD	pc_bak;	// jump‚·‚é‘O‚ÌPC.	(‹tƒAƒZƒ“ƒuƒ‹‚É•K—v)
+	WORD	pc_bak;	// jumpã™ã‚‹å‰ã®PC.	(é€†ã‚¢ã‚»ãƒ³ãƒ–ãƒ«æ™‚ã«å¿…è¦)
 } CONTEXT;
 
-CONTEXT	reg;
+Extern CONTEXT	reg;
 
 
 #define	EMUFUNC_(x_)	int x_(int code,struct _OPCODE *tab)
 #define	DISFUNC_(x_)	int x_(int code,struct _OPCODE *tab)
 
-//	–½—ßÀsŠÖ”‚Ìƒvƒƒgƒ^ƒCƒvéŒ¾.
+//	å‘½ä»¤å®Ÿè¡Œé–¢æ•°ã®ãƒ—ãƒ­ãƒˆã‚¿ã‚¤ãƒ—å®£è¨€.
 EMUFUNC_( f_JMP );
 EMUFUNC_( f_JNB );
 EMUFUNC_( f_JM  );
@@ -108,7 +112,7 @@ EMUFUNC_( f_RET );
 EMUFUNC_( f_SFR );
 EMUFUNC_( f_SFL );
                
-//	xx	ƒAƒhƒŒƒbƒVƒ“ƒO
+//	xx	ã‚¢ãƒ‰ãƒ¬ãƒƒã‚·ãƒ³ã‚°
 //	00	Imm8
 //	01	Reg8
 //	10	[Reg8]
@@ -118,12 +122,12 @@ enum {
 	XX_IMM8 =0x0000,
 	XX_REG8 =0x1000,
 	XX_IND8 =0x2000,
-	XX_IMM16=0x3000,	//Œã‘±‚·‚é IMM16 ‘¦’l‚ğ‚Â.
+	XX_IMM16=0x3000,	//å¾Œç¶šã™ã‚‹ IMM16 å³å€¤ã‚’æŒã¤.
 	XX_MASK =0x3000,
 
 	IS_REG	=0x10000,
 };
-//	dd	ƒfƒBƒXƒvƒŒƒCƒXƒƒ“ƒg
+//	dd	ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã‚¹ãƒ¡ãƒ³ãƒˆ
 //	00	Abs
 //	01	fwd
 //	10	back
@@ -136,23 +140,23 @@ enum {
 	DD_MASK =0x0C00,
 };
 //
-//	‰‰Z–½—ß‚ÅAŒ‹‰Ê‚ğAcc‚É–ß‚·‚©‚Ç‚¤‚©.
+//	æ¼”ç®—å‘½ä»¤ã§ã€çµæœã‚’Accã«æˆ»ã™ã‹ã©ã†ã‹.
 //
 enum {
-	OP_TEST	    =0x0100,	//ƒeƒXƒg‚Ì‚İ‚ÅAcc‚ğXV‚µ‚È‚¢.
+	OP_TEST	    =0x0100,	//ãƒ†ã‚¹ãƒˆã®ã¿ã§Accã‚’æ›´æ–°ã—ãªã„.
 	OP_TEST_MASK=0x0100,
 };
 
-char symbuf[128];
-char label[128];
-char mnemonic[128];
-char operandbuf[128];
-char comment[512];
+Extern char symbuf[128];
+Extern char label[128];
+Extern char mnemonic[128];
+Extern char operandbuf[128];
+Extern char comment[512];
 
-char *operand;
+Extern char *operand;
 
-int	save_ptr;	//memory[]‚Ì—LŒøƒTƒCƒY.
-HASH *sym;		//ƒVƒ“ƒ{ƒ‹•\.
+Extern int	save_ptr;	//memory[]ã®æœ‰åŠ¹ã‚µã‚¤ã‚º.
+Extern HASH *sym;		//ã‚·ãƒ³ãƒœãƒ«è¡¨.
 
 #define	ZZ	printf("%s:%d: ZZ\n",__FILE__,__LINE__);
 

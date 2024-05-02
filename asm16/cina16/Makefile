@@ -1,8 +1,8 @@
 #################################################################
-#	�R���p�C���� MinGw gcc���g�p���܂��B
-#	�����Ă͂��܂���cygwin�ł����v�Ȃ͂��ł��B
-#	(cygwin�ł́A�R���p�C���I�v�V���� -mno-cygwin��t���܂�)
-#	DEBUG�̎��ɂ́A-g�����A-s���O���܂��B
+#	コンパイラは MinGw gccを使用します。
+#	試してはいませんがcygwinでも大丈夫なはずです。
+#	(cygwinでは、コンパイルオプション -mno-cygwinを付けます)
+#	DEBUGの時には、-gをつけ、-sを外します。
 #################################################################
 # REMOVE DEFAULT MAKE RULE
 MAKEFLAGS = -r
@@ -13,7 +13,7 @@ MAKEFLAGS = -r
 
 
 #============================
-# DOS���ǂ����`�F�b�N.
+# DOSかどうかチェック.
  ifdef ComSpec
 MSDOS=1
  endif
@@ -38,7 +38,8 @@ CFLAGS	= -s $(DOSFLAGS) $(CDEFS) -O2 -Wall
 CFLAGS	+= -Wno-multichar
 LIBS	=
 
-TARGET  = cina16$(EXE)
+TARGET  = cina16.exe
+#TARGET  = cina16$(EXE)
 #
 #
 #
@@ -60,16 +61,16 @@ $(TARGET) : $(files)
 	$(CC) $(CFLAGS) -o $@ $(files) $(WIN32LIB) -lm $(LIBS)
 #
 test:
-	./cina16$(EXE) nr.c
+	./cina16.exe nr.c
 	cat nr.lst
 
 #	./cina16$(EXE) -S nr.c
 #	cat nr.asm
 #
 test2:
-	./cina16$(EXE) -S infile.c
+	./cina16.exe -S infile.c
 	cat infile.asm
-	./cina16$(EXE) infile.c
+	./cina16.exe infile.c
 	cat infile.lst
 #
 #

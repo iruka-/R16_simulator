@@ -11,54 +11,54 @@
 #define	TEST	(1)
 
 OPCODE opcode_init_tab[]={
- //ƒjƒ‚,ˆÓ–¡					,‹@ŠBŒê		 ,f_emu,d_dis  //z,c,m,“®ì --------------------
- {"JMP","JMP always"            ,"00xxdd00"  ,f_JMP,d_JMP},//-,-,-,–³ğŒ‚É•ªŠò‚·‚é
- {"JBP","Jump if Not Blanking"  ,"00xxdd01"  ,f_JBP,d_JBP},//-,-,-,‹AüŠúŠÔ‚Å‚È‚¯‚ê‚Î•ªŠò
- {"JNF","Jump if Not Full"      ,"00xxdd10"  ,f_JNF,d_JNF},//-,-,-,0xff‚Å‚È‚¯‚ê‚Í•ªŠò
- {"JF" ,"Jump if Full"          ,"00xxdd11"  ,f_JF ,d_JF },//-,-,-,0xff‚È‚ç•ªŠò
- {"JNC","Jump if Not Carry"     ,"01xxdd00"  ,f_JNC,d_JNC},//-,-,-,ƒLƒƒƒŠ[–³(ƒ{ƒ[—L)‚È‚ç•ªŠò
- {"JC" ,"Jump if Carry"         ,"01xxdd01"  ,f_JC ,d_JC },//-,-,-,ƒLƒƒƒŠ[—L(ƒ{ƒ[–³)‚È‚ç•ªŠò
- {"JNM","Jump if Not Minus"     ,"01xxdd10"  ,f_JNM,d_JNM},//-,-,-,0‚Ü‚½‚Íƒvƒ‰ƒX‚È‚ç•ªŠò
- {"JM" ,"Jump if Minus"         ,"01xxdd11"  ,f_JM ,d_JM },//-,-,-,ƒ}ƒCƒiƒX‚È‚ç•ªŠò
- {"LD" ,"LoaD"                  ,"10xx0000"  ,f_LD ,d_LD },//?,0,?,ƒ[ƒh
- {"LDT","LoaD Test"             ,"10xx0001"  ,f_LD ,d_LD },//?,0,?,ã‹L‚ÌŒ±iƒtƒ‰ƒOXV‚Ì‚İj
- {"SBC","SuB. with Borrow"      ,"10xx0010"  ,f_SBB,d_SBB},//?,?,?,ƒ{ƒ[•tŒ¸Z
- {"SCT","Sub. with Borrow Test" ,"10xx0011"  ,f_SBB,d_SBB},//?,?,?,ã‹L‚ÌŒ±iƒtƒ‰ƒOXV‚Ì‚İj
- {"SUB","SUBtract"              ,"10xx0100"  ,f_SUB,d_SUB},//?,?,?,Œ¸Z
- {"SBT","SUBtract Test"         ,"10xx0101"  ,f_SUB,d_SUB},//?,?,?,ã‹L‚ÌŒ±iƒtƒ‰ƒOXV‚Ì‚İj
- {"OR" ,"OR"                    ,"10xx0110"  ,f_OR ,d_OR },//?,0,?,˜_—˜a
- {"ORT","OR Test"               ,"10xx0111"  ,f_OR ,d_OR },//?,0,?,ã‹L‚ÌŒ±iƒtƒ‰ƒOXV‚Ì‚İj
- {"ADD","ADD"                   ,"10xx1000"  ,f_ADD,d_ADD},//?,?,?,‰ÁZ
- {"ADT","ADd Test"              ,"10xx1001"  ,f_ADD,d_ADD},//?,?,?,ã‹L‚ÌŒ±iƒtƒ‰ƒOXV‚Ì‚İj
- {"AND","AND"                   ,"10xx1010"  ,f_AND,d_AND},//?,0,?,˜_—Ï
- {"ANT","ANd Test"              ,"10xx1011"  ,f_AND,d_AND},//?,0,?,ã‹L‚ÌŒ±iƒtƒ‰ƒOXV‚Ì‚İj
- {"ADC","ADd with Carry"        ,"10xx1100"  ,f_ADC,d_ADC},//?,?,?,ƒLƒƒƒŠ[•t‰ÁZ
- {"ACT","Add with Carry Test"   ,"10xx1101"  ,f_ADC,d_ADC},//?,?,?,ã‹L‚ÌŒ±iƒtƒ‰ƒOXV‚Ì‚İj
- {"XOR","eXcusive OR"           ,"10xx1110"  ,f_XOR,d_XOR},//?,0,?,”r‘¼“I˜_—˜a
- {"XOT","eXcusive Or Test"      ,"10xx1111"  ,f_XOR,d_XOR},//?,0,?,ã‹L‚ÌŒ±iƒtƒ‰ƒOXV‚Ì‚İj
- {"LDV","LoaD from Vram"        ,"11xx000-"  ,f_LDV,d_LDV},//?,0,?,ƒrƒfƒIƒƒ‚ƒŠ‚©‚ç‚Ìƒ[ƒh
- {"LDP","LoaD from PC"          ,"11xx001-"  ,f_LDP,d_LDP},//?,0,?,PCiŸ‚Ì–½—ß‚ÌƒAƒhƒŒƒXj+u’lv=>Acc
- {"ST" ,"STore"                 ,"11xx010-"  ,f_ST ,d_ST },//-,-,-,ƒXƒgƒA
- {"SR" ,"ShiFt Right"           ,"11--011-"  ,f_SFR,d_SFR},//?,?,?,‰EƒVƒtƒgiƒIƒyƒ‰ƒ“ƒh‚Í–³Œøj
- {"SL" ,"ShiFt Left"            ,"11--100-"  ,f_SFL,d_SFL},//?,?,?,¶ƒVƒtƒgiƒIƒyƒ‰ƒ“ƒh‚Í–³Œøj
- {"IN" ,"IN"                    ,"11xx101-"  ,f_IN ,d_IN },//-,-,-,ƒgƒOƒ‹ƒXƒCƒbƒ`‚Ìó‘Ô‚ğ“ü—Í
- {"OUT","OUT  "                 ,"11xx110-"  ,f_OUT,d_OUT},//-,-,-,Acc‚Æw’èƒƒ‚ƒŠ’l‚ğLED‚É•\¦
- {"STV","STore to Vram"         ,"11xx1110"  ,f_STV,d_STV},//-,-,-,ƒrƒfƒIƒƒ‚ƒŠ‚Ö‚ÌƒXƒgƒA
- {"HALT","HALT"                 ,"11xx1111"  ,f_HLT,d_HLT},//-,-,-,’â~
-// {"SCN","SCaN JOY stick port"   ,"11xx1111"  ,f_SCN,d_SCN},//-,-,-,ƒWƒ‡ƒCƒXƒeƒBƒbƒN“ü—Í‚ÌƒXƒLƒƒƒ“
-// {"STP","STore Program counter" ,"11xx100-"  ,f_STP,d_STP},//-,-,-,ƒvƒƒOƒ‰ƒ€ƒJƒEƒ“ƒ^’l‚ğ•Û‘¶
- //ƒjƒ‚,ˆÓ–¡					,‹@ŠBŒê		 ,f_emu,d_dis  //z,c,m,“®ì --------------------
+ //ãƒ‹ãƒ¢,æ„å‘³					,æ©Ÿæ¢°èª		 ,f_emu,d_dis  //z,c,m,å‹•ä½œ --------------------
+ {"JMP","JMP always"            ,"00xxdd00"  ,f_JMP,d_JMP},//-,-,-,ç„¡æ¡ä»¶ã«åˆ†å²ã™ã‚‹
+ {"JBP","Jump if Not Blanking"  ,"00xxdd01"  ,f_JBP,d_JBP},//-,-,-,å¸°ç·šæœŸé–“ã§ãªã‘ã‚Œã°åˆ†å²
+ {"JNF","Jump if Not Full"      ,"00xxdd10"  ,f_JNF,d_JNF},//-,-,-,0xffã§ãªã‘ã‚Œã¯åˆ†å²
+ {"JF" ,"Jump if Full"          ,"00xxdd11"  ,f_JF ,d_JF },//-,-,-,0xffãªã‚‰åˆ†å²
+ {"JNC","Jump if Not Carry"     ,"01xxdd00"  ,f_JNC,d_JNC},//-,-,-,ã‚­ãƒ£ãƒªãƒ¼ç„¡(ãƒœãƒ­ãƒ¼æœ‰)ãªã‚‰åˆ†å²
+ {"JC" ,"Jump if Carry"         ,"01xxdd01"  ,f_JC ,d_JC },//-,-,-,ã‚­ãƒ£ãƒªãƒ¼æœ‰(ãƒœãƒ­ãƒ¼ç„¡)ãªã‚‰åˆ†å²
+ {"JNM","Jump if Not Minus"     ,"01xxdd10"  ,f_JNM,d_JNM},//-,-,-,0ã¾ãŸã¯ãƒ—ãƒ©ã‚¹ãªã‚‰åˆ†å²
+ {"JM" ,"Jump if Minus"         ,"01xxdd11"  ,f_JM ,d_JM },//-,-,-,ãƒã‚¤ãƒŠã‚¹ãªã‚‰åˆ†å²
+ {"LD" ,"LoaD"                  ,"10xx0000"  ,f_LD ,d_LD },//?,0,?,ãƒ­ãƒ¼ãƒ‰
+ {"LDT","LoaD Test"             ,"10xx0001"  ,f_LD ,d_LD },//?,0,?,ä¸Šè¨˜ã®è©¦é¨“ï¼ˆãƒ•ãƒ©ã‚°æ›´æ–°ã®ã¿ï¼‰
+ {"SBC","SuB. with Borrow"      ,"10xx0010"  ,f_SBB,d_SBB},//?,?,?,ãƒœãƒ­ãƒ¼ä»˜æ¸›ç®—
+ {"SCT","Sub. with Borrow Test" ,"10xx0011"  ,f_SBB,d_SBB},//?,?,?,ä¸Šè¨˜ã®è©¦é¨“ï¼ˆãƒ•ãƒ©ã‚°æ›´æ–°ã®ã¿ï¼‰
+ {"SUB","SUBtract"              ,"10xx0100"  ,f_SUB,d_SUB},//?,?,?,æ¸›ç®—
+ {"SBT","SUBtract Test"         ,"10xx0101"  ,f_SUB,d_SUB},//?,?,?,ä¸Šè¨˜ã®è©¦é¨“ï¼ˆãƒ•ãƒ©ã‚°æ›´æ–°ã®ã¿ï¼‰
+ {"OR" ,"OR"                    ,"10xx0110"  ,f_OR ,d_OR },//?,0,?,è«–ç†å’Œ
+ {"ORT","OR Test"               ,"10xx0111"  ,f_OR ,d_OR },//?,0,?,ä¸Šè¨˜ã®è©¦é¨“ï¼ˆãƒ•ãƒ©ã‚°æ›´æ–°ã®ã¿ï¼‰
+ {"ADD","ADD"                   ,"10xx1000"  ,f_ADD,d_ADD},//?,?,?,åŠ ç®—
+ {"ADT","ADd Test"              ,"10xx1001"  ,f_ADD,d_ADD},//?,?,?,ä¸Šè¨˜ã®è©¦é¨“ï¼ˆãƒ•ãƒ©ã‚°æ›´æ–°ã®ã¿ï¼‰
+ {"AND","AND"                   ,"10xx1010"  ,f_AND,d_AND},//?,0,?,è«–ç†ç©
+ {"ANT","ANd Test"              ,"10xx1011"  ,f_AND,d_AND},//?,0,?,ä¸Šè¨˜ã®è©¦é¨“ï¼ˆãƒ•ãƒ©ã‚°æ›´æ–°ã®ã¿ï¼‰
+ {"ADC","ADd with Carry"        ,"10xx1100"  ,f_ADC,d_ADC},//?,?,?,ã‚­ãƒ£ãƒªãƒ¼ä»˜åŠ ç®—
+ {"ACT","Add with Carry Test"   ,"10xx1101"  ,f_ADC,d_ADC},//?,?,?,ä¸Šè¨˜ã®è©¦é¨“ï¼ˆãƒ•ãƒ©ã‚°æ›´æ–°ã®ã¿ï¼‰
+ {"XOR","eXcusive OR"           ,"10xx1110"  ,f_XOR,d_XOR},//?,0,?,æ’ä»–çš„è«–ç†å’Œ
+ {"XOT","eXcusive Or Test"      ,"10xx1111"  ,f_XOR,d_XOR},//?,0,?,ä¸Šè¨˜ã®è©¦é¨“ï¼ˆãƒ•ãƒ©ã‚°æ›´æ–°ã®ã¿ï¼‰
+ {"LDV","LoaD from Vram"        ,"11xx000-"  ,f_LDV,d_LDV},//?,0,?,ãƒ“ãƒ‡ã‚ªãƒ¡ãƒ¢ãƒªã‹ã‚‰ã®ãƒ­ãƒ¼ãƒ‰
+ {"LDP","LoaD from PC"          ,"11xx001-"  ,f_LDP,d_LDP},//?,0,?,PCï¼ˆæ¬¡ã®å‘½ä»¤ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ï¼‰+ã€Œå€¤ã€=>Acc
+ {"ST" ,"STore"                 ,"11xx010-"  ,f_ST ,d_ST },//-,-,-,ã‚¹ãƒˆã‚¢
+ {"SR" ,"ShiFt Right"           ,"11--011-"  ,f_SFR,d_SFR},//?,?,?,å³ã‚·ãƒ•ãƒˆï¼ˆã‚ªãƒšãƒ©ãƒ³ãƒ‰ã¯ç„¡åŠ¹ï¼‰
+ {"SL" ,"ShiFt Left"            ,"11--100-"  ,f_SFL,d_SFL},//?,?,?,å·¦ã‚·ãƒ•ãƒˆï¼ˆã‚ªãƒšãƒ©ãƒ³ãƒ‰ã¯ç„¡åŠ¹ï¼‰
+ {"IN" ,"IN"                    ,"11xx101-"  ,f_IN ,d_IN },//-,-,-,ãƒˆã‚°ãƒ«ã‚¹ã‚¤ãƒƒãƒã®çŠ¶æ…‹ã‚’å…¥åŠ›
+ {"OUT","OUT  "                 ,"11xx110-"  ,f_OUT,d_OUT},//-,-,-,Accã¨æŒ‡å®šãƒ¡ãƒ¢ãƒªå€¤ã‚’LEDã«è¡¨ç¤º
+ {"STV","STore to Vram"         ,"11xx1110"  ,f_STV,d_STV},//-,-,-,ãƒ“ãƒ‡ã‚ªãƒ¡ãƒ¢ãƒªã¸ã®ã‚¹ãƒˆã‚¢
+ {"HALT","HALT"                 ,"11xx1111"  ,f_HLT,d_HLT},//-,-,-,åœæ­¢
+// {"SCN","SCaN JOY stick port"   ,"11xx1111"  ,f_SCN,d_SCN},//-,-,-,ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯å…¥åŠ›ã®ã‚¹ã‚­ãƒ£ãƒ³
+// {"STP","STore Program counter" ,"11xx100-"  ,f_STP,d_STP},//-,-,-,ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚«ã‚¦ãƒ³ã‚¿å€¤ã‚’ä¿å­˜
+ //ãƒ‹ãƒ¢,æ„å‘³					,æ©Ÿæ¢°èª		 ,f_emu,d_dis  //z,c,m,å‹•ä½œ --------------------
  { NULL,NULL,NULL}
 };
 OPCODE UNDEFINED_OPCODE=
  {"???","???","--------",f_und,d_und};
-//	xx	ƒAƒhƒŒƒbƒVƒ“ƒO
+//	xx	ã‚¢ãƒ‰ãƒ¬ãƒƒã‚·ãƒ³ã‚°
 //	00	Imm8
 //	01	Reg8
 //	10	[Reg8]
 //	11	Imm16
 
-//	dd	ƒfƒBƒXƒvƒŒƒCƒXƒƒ“ƒg
+//	dd	ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã‚¹ãƒ¡ãƒ³ãƒˆ
 //	00	Abs
 //	01	fwd
 //	10	back
@@ -78,9 +78,9 @@ void VRAM_output(int adrs,int data);
 extern	int	led_trace;
 
 /** *********************************************************************************
- *	–½—ßƒR[ƒh(code) ‚ªAOPCODE•\‚Ì‚P—v‘f(*s)  ‚Éƒ}ƒbƒ`‚·‚é‚©”»’è.
+ *	å‘½ä»¤ã‚³ãƒ¼ãƒ‰(code) ãŒã€OPCODEè¡¨ã®ï¼‘è¦ç´ (*s)  ã«ãƒãƒƒãƒã™ã‚‹ã‹åˆ¤å®š.
  ************************************************************************************
- *	ƒ}ƒbƒ`‚µ‚½‚ç 0 ‚ğ•Ô‚·.
+ *	ãƒãƒƒãƒã—ãŸã‚‰ 0 ã‚’è¿”ã™.
  */
 int match_table(OPCODE *s,int code)
 {
@@ -101,10 +101,10 @@ int match_table(OPCODE *s,int code)
 }
 
 /** *********************************************************************************
- *	–½—ßƒR[ƒh code ‚ªƒ}ƒbƒ`‚·‚éOPCODE‚ğopcode_init_tab[]‚©‚ç’T‚·. 
+ *	å‘½ä»¤ã‚³ãƒ¼ãƒ‰ code ãŒãƒãƒƒãƒã™ã‚‹OPCODEã‚’opcode_init_tab[]ã‹ã‚‰æ¢ã™. 
  ************************************************************************************
- *	Œ©‚Â‚©‚Á‚½‚çA‚»‚ê‚ğ *table ‚ÉŠÛ‚Á‚ÆƒRƒs[‚·‚é.
- *	Œ©‚Â‚©‚ç‚È‚©‚Á‚½‚çAUNDEFINED_OPCODE‚ğ *table ‚ÉŠÛ‚Á‚ÆƒRƒs[‚·‚é.
+ *	è¦‹ã¤ã‹ã£ãŸã‚‰ã€ãã‚Œã‚’ *table ã«ä¸¸ã£ã¨ã‚³ãƒ”ãƒ¼ã™ã‚‹.
+ *	è¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸã‚‰ã€UNDEFINED_OPCODEã‚’ *table ã«ä¸¸ã£ã¨ã‚³ãƒ”ãƒ¼ã™ã‚‹.
  */
 void make_table(OPCODE *table,int code)
 {
@@ -120,12 +120,12 @@ void make_table(OPCODE *table,int code)
 }
 
 /** *********************************************************************************
- *	opcode_init_tab[]‚Ìî•ñ‚ğ‚à‚Æ‚ÉA‘ˆø‚«•\‚Ì code_table[256] ‚ğ\’z‚·‚é.
+ *	opcode_init_tab[]ã®æƒ…å ±ã‚’ã‚‚ã¨ã«ã€æ—©å¼•ãè¡¨ã® code_table[256] ã‚’æ§‹ç¯‰ã™ã‚‹.
  ************************************************************************************
  */
 void init_table()
 {
-	OPCODE *table = code_table;		// \’z‚µ‚½‚¢•\ code_table[256]; ‚Ìæ“ªƒAƒhƒŒƒX.
+	OPCODE *table = code_table;		// æ§‹ç¯‰ã—ãŸã„è¡¨ code_table[256]; ã®å…ˆé ­ã‚¢ãƒ‰ãƒ¬ã‚¹.
 	int code;
 	for(code=0;code<256;code++,table++) {
 		make_table(table,code);
@@ -133,17 +133,17 @@ void init_table()
 }
 
 /** *********************************************************************************
- *	Œã‘±‚·‚é16bit‘¦’l‚ª‘¶İ‚·‚é–½—ß‚È‚ç 1 ‚ğ•Ô‚·.
+ *	å¾Œç¶šã™ã‚‹16bitå³å€¤ãŒå­˜åœ¨ã™ã‚‹å‘½ä»¤ãªã‚‰ 1 ã‚’è¿”ã™.
  ************************************************************************************
  */
 int	is_imm16(int code)
 {
 	code &= XX_MASK;
-	if( code == XX_IMM16 ) return 1;	//Œã‘±‚·‚é IMM16 ‘¦’l‚ğ‚Â.
+	if( code == XX_IMM16 ) return 1;	//å¾Œç¶šã™ã‚‹ IMM16 å³å€¤ã‚’æŒã¤.
 	return 0;
 }
 /** *********************************************************************************
- *	16bit‚Ì–½—ß‚ğ‚P‚ÂƒtƒFƒbƒ`‚µ‚ÄÀs‚·‚é.
+ *	16bitã®å‘½ä»¤ã‚’ï¼‘ã¤ãƒ•ã‚§ãƒƒãƒã—ã¦å®Ÿè¡Œã™ã‚‹.
  ************************************************************************************
  */
 int	execute_pc()
@@ -153,16 +153,16 @@ int	execute_pc()
 	OPCODE *table = &code_table[ (opcode >> 8) & 0xff ];
 	reg.pc_bak = reg.pc;
 
-	rc = table->emufunc(opcode,table);	//–½—ßÀs.
+	rc = table->emufunc(opcode,table);	//å‘½ä»¤å®Ÿè¡Œ.
 	if(led_trace) {
-		table->disfunc(opcode,table);	//‹tƒAƒZƒ“ƒuƒ‹.
+		table->disfunc(opcode,table);	//é€†ã‚¢ã‚»ãƒ³ãƒ–ãƒ«.
 	}
 	if(rc) return rc;
 	return LED_draw(reg.pc,led_trace);
 
 }
 
-//	JOY“ü—Í.
+//	JOYå…¥åŠ›.
 int	 JOY_input()
 {
 	return 0;
@@ -181,12 +181,14 @@ void randomize_mem()
 int	load_binary(char *fname)
 {
 	Ropen(fname);
-	Read(memory,sizeof(memory));
+	int rc = Read(memory,sizeof(memory));
 	Rclose();
+	
+	(void)rc;
 	return 0;
 }
 /** *********************************************************************************
- *	ƒƒCƒ“ƒ‹[ƒ`ƒ“.
+ *	ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒãƒ³.
  ************************************************************************************
  */
 int main(int argc,char **argv)

@@ -14,7 +14,7 @@ files	= main.o asm16.o hash.o debug.o opcode.o
 #
 #
 #
-asm16 : $(files)
+asm16.exe : $(files)
 	gcc -O2 -s $(files) -o $@
 #	cp asm16.exe cina16
 #
